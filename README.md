@@ -27,7 +27,7 @@ allprojects {
 }
 
 dependencies {
-        implementation 'com.github.JingZhuanDuoYing:Matisse:v0.5.3-beta3'
+        implementation 'com.github.JingZhuanDuoYing:Matisse:1.0.1'
 }
 ```
 
