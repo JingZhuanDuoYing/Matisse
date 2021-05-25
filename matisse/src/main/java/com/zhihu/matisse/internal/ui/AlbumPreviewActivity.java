@@ -62,7 +62,7 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mCollection.onDestroy();
+//        mCollection.onDestroy();
     }
 
     @Override

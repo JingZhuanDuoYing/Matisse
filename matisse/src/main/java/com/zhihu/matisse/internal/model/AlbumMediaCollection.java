@@ -55,7 +55,7 @@ public class AlbumMediaCollection implements LoaderManager.LoaderCallbacks<Curso
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         Context context = mContext.get();
         if (context == null) {
             return;
@@ -65,7 +65,7 @@ public class AlbumMediaCollection implements LoaderManager.LoaderCallbacks<Curso
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         Context context = mContext.get();
         if (context == null) {
             return;
@@ -76,7 +76,7 @@ public class AlbumMediaCollection implements LoaderManager.LoaderCallbacks<Curso
 
     public void onCreate(@NonNull FragmentActivity context, @NonNull AlbumMediaCallbacks callbacks) {
         mContext = new WeakReference<Context>(context);
-        mLoaderManager = context.getSupportLoaderManager();
+        mLoaderManager = LoaderManager.getInstance(context);
         mCallbacks = callbacks;
     }
 
@@ -95,7 +95,11 @@ public class AlbumMediaCollection implements LoaderManager.LoaderCallbacks<Curso
         Bundle args = new Bundle();
         args.putParcelable(ARGS_ALBUM, target);
         args.putBoolean(ARGS_ENABLE_CAPTURE, enableCapture);
-        mLoaderManager.initLoader(LOADER_ID, args, this);
+        if (mLoaderManager.getLoader(LOADER_ID) != null) {
+            mLoaderManager.restartLoader(LOADER_ID, args, this);
+        } else {
+            mLoaderManager.initLoader(LOADER_ID, args, this);
+        }
     }
 
     public interface AlbumMediaCallbacks {
